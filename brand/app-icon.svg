@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 76" role="img" aria-label="أيقونة ضوء">
+  <title>أيقونة ضوء</title>
+  <defs>
+    <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#ffffff" fill-opacity=".12"/></pattern>
+  </defs>
+  <rect width="76" height="76" rx="18" fill="#005430"/>
+  <rect width="76" height="76" rx="18" fill="url(#dots)"/>
+  <svg x="13" y="13" width="50" height="50" viewBox="0 0 48 48"><defs><clipPath id="a-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#c4b5fd" clip-path="url(#a-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#c4b5fd"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#c4b5fd"/></svg>
+</svg>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ضوء — موشن جرافيك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="../brand/favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --flag:#005430; --flag-deep:#00341e; --flag-night:#03100a;
+  --mint:#5ccf95; --violet:#6d28d9; --violet-glow:#8b5cf6; --violet-soft:#a78bfa;
+  --text:#1c2a23; --muted:#55625b; --soft:#f4f7f5; --border:#dfe7e2;
+  --display:'Alexandria','IBM Plex Sans Arabic',sans-serif;
+  --body:'IBM Plex Sans Arabic',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#000;overflow:hidden}
+body{font-family:var(--body);display:grid;place-items:center}
+
+/* ---------- Stage (1920x1080, scaled to fit) ---------- */
+#viewport{position:fixed;inset:0;display:grid;place-items:center}
+#stage{position:absolute;width:1920px;height:1080px;overflow:hidden;background:var(--flag-deep);
+  transform-origin:center center;direction:rtl;color:var(--text)}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+
+/* shared */
+.grid-bg{position:absolute;inset:-2px;background-image:
+  linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:80px 80px}
+.grid-bg.light{background-image:
+  linear-gradient(rgba(0,84,48,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,84,48,.06) 1px,transparent 1px)}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:14px;font:600 30px var(--body);color:var(--violet);
+  background:#f1ebfd;padding:12px 30px;border-radius:999px}
+.eyebrow i{width:12px;height:12px;background:var(--violet);display:block}
+.h2{font:800 76px/1.25 var(--display);color:var(--flag-deep);letter-spacing:-.5px}
+.pixel{position:absolute;background:var(--violet-glow)}
+
+/* ---------- S1 Logo intro ---------- */
+#s1{background:radial-gradient(ellipse at 50% 55%,#0b4a2f 0%,var(--flag-deep) 55%,var(--flag-night) 100%)}
+#s1 .flash{position:absolute;left:50%;top:50%;width:1400px;height:1400px;margin:-700px 0 0 -700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.9) 0%,rgba(139,92,246,.35) 25%,transparent 60%);opacity:0}
+#s1 .rays{position:absolute;left:50%;top:50%;width:2400px;height:2400px;margin:-1200px 0 0 -1200px;opacity:0;
+  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.07) 0deg 4deg,transparent 4deg 18deg);
+  -webkit-mask:radial-gradient(circle,#000 0%,transparent 55%);mask:radial-gradient(circle,#000 0%,transparent 55%)}
+#lockup{position:absolute;left:50%;top:50%;width:0;height:0}
+#mark{position:absolute;width:380px;height:380px;left:-190px;top:-190px;overflow:visible}
+#wordmark{position:absolute;top:-150px;right:40px;width:700px;text-align:right;direction:rtl}
+#wordmark .name{font:800 220px/1 var(--display);color:#fff;display:block;clip-path:inset(0 0 0 100%)}
+#wordmark .sub{font:500 52px var(--body);color:#cfe3d8;display:block;margin-top:18px}
+#wordmark .en{font:600 26px 'IBM Plex Sans',sans-serif;letter-spacing:9px;color:var(--mint);display:block;margin-top:14px;direction:ltr;text-align:right}
+#lockup .divider{position:absolute;width:4px;height:330px;top:-165px;right:0;background:var(--violet-glow);transform:scaleY(0)}
+
+/* ---------- S2 Tagline ---------- */
+#s2{background:#fff}
+#s2 .wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:50px}
+#s2 .line{font:800 128px/1.3 var(--display);color:var(--flag-deep);display:flex;gap:36px;justify-content:center}
+#s2 .w{display:inline-block;overflow:hidden;padding:0 4px 18px}
+#s2 .w span{display:inline-block}
+#s2 .shine{background:linear-gradient(100deg,var(--violet) 0%,var(--violet-glow) 40%,#d8c8ff 50%,var(--violet-glow) 60%,var(--violet) 100%);
+  background-size:300% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent}
+#s2 .desc{font:500 40px/1.6 var(--body);color:var(--muted);max-width:1300px}
+#s2 .underline{position:absolute;height:14px;background:var(--violet-glow);opacity:.25;border-radius:8px;transform-origin:right}
+
+/* ---------- S3 Services ---------- */
+#s3{background:var(--soft)}
+#s3 .head{position:absolute;top:90px;left:0;right:0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}
+#s3 .cards{position:absolute;top:350px;left:150px;right:150px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.card{position:relative;background:#fff;border:2px solid var(--border);border-radius:28px;padding:34px 44px;display:flex;flex-direction:column;align-items:flex-start;gap:22px;min-height:250px;
+  box-shadow:0 20px 40px -18px rgba(0,52,30,.18);overflow:hidden}
+.card .ic{flex:none;width:112px;height:112px;border-radius:26px;background:#e3f1ea;display:grid;place-items:center;color:var(--flag)}
+.card .ic svg{width:58px;height:58px}
+.card h3{font:700 42px/1.35 var(--display);color:var(--flag-deep)}
+.card.hot .ic{background:#f1ebfd;color:var(--violet)}
+.card .tag{position:absolute;top:20px;left:22px;font:600 22px var(--body);background:var(--violet);color:#fff;padding:4px 16px;border-radius:999px}
+.card .sweep{position:absolute;top:0;bottom:0;width:180px;left:-200px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.18),transparent);transform:skewX(-18deg)}
+
+/* ---------- S4 Process ---------- */
+#s4{background:#fff}
+#s4 .head{position:absolute;top:120px;left:0;right:0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}
+#s4 .track{position:absolute;top:560px;left:230px;right:230px;height:8px;border-radius:8px;background:var(--border)}
+#s4 .fill{position:absolute;inset:0;background:linear-gradient(270deg,var(--flag),var(--violet-glow));border-radius:8px;transform:scaleX(0);transform-origin:right}
+#s4 .steps{position:absolute;top:480px;left:110px;right:110px;display:flex;justify-content:space-between}
+.step{width:400px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px}
+.step .node{width:168px;height:168px;border-radius:50%;background:#fff;border:6px solid var(--border);display:grid;place-items:center;
+  font:800 58px var(--display);color:#b8c6bf;position:relative}
+.step.on .node{border-color:var(--flag);color:#fff;background:var(--flag);box-shadow:0 0 0 18px rgba(0,84,48,.08)}
+.step.on.last .node{border-color:var(--violet);background:var(--violet);box-shadow:0 0 0 18px rgba(109,40,217,.1),0 0 60px rgba(139,92,246,.5)}
+.step h4{font:700 40px/1.35 var(--display);color:var(--flag-deep)}
+.step p{font:500 28px/1.55 var(--body);color:var(--muted)}
+
+/* ---------- S5 Stats ---------- */
+#s5{background:radial-gradient(ellipse at 50% 120%,#0b4a2f 0%,var(--flag-deep) 50%,var(--flag-night) 100%);color:#fff}
+#s5 .head{position:absolute;top:150px;left:0;right:0;text-align:center}
+#s5 .head .h2{color:#fff}
+#s5 .head .h2 em{font-style:normal;color:var(--violet-soft)}
+#s5 .stats{position:absolute;top:420px;left:120px;right:120px;display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
+.stat{text-align:center;padding:60px 20px;border-radius:32px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.08);position:relative;overflow:hidden}
+.stat .num{font:800 140px/1 var(--display);direction:ltr;display:flex;justify-content:center;align-items:flex-start;gap:6px}
+.stat .num sup{font-size:72px;color:var(--violet-soft);line-height:1.1}
+.stat .lbl{font:500 38px var(--body);color:#cfe3d8;margin-top:28px}
+.stat .bar{position:absolute;bottom:0;right:0;left:0;height:6px;background:var(--violet-glow);transform:scaleX(0);transform-origin:right}
+
+/* ---------- S6 Tech ---------- */
+#s6{background:var(--flag-night);color:#fff}
+#s6 .head{position:absolute;top:170px;left:0;right:0;text-align:center}
+#s6 .head .h2{color:#fff}
+#s6 .row{position:absolute;left:0;display:flex;gap:30px;direction:ltr;white-space:nowrap}
+#s6 .row span{font:600 50px 'IBM Plex Sans',sans-serif;padding:26px 56px;border-radius:999px;border:2px solid rgba(255,255,255,.14);color:#e6f2ec;background:rgba(255,255,255,.03)}
+#s6 .row span.v{border-color:rgba(167,139,250,.5);color:var(--violet-soft)}
+
+/* ---------- S7 CTA ---------- */
+#s7{background:radial-gradient(ellipse at 50% 40%,#0d5a39 0%,var(--flag-deep) 55%,var(--flag-night) 100%);color:#fff}
+#s7 .rays{position:absolute;left:50%;top:38%;width:2600px;height:2600px;margin:-1300px 0 0 -1300px;
+  background:repeating-conic-gradient(from 0deg,rgba(167,139,250,.08) 0deg 3deg,transparent 3deg 15deg);
+  -webkit-mask:radial-gradient(circle,#000 0%,transparent 50%);mask:radial-gradient(circle,#000 0%,transparent 50%)}
+#s7 .wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#s7 svg.m{width:200px;height:200px;margin-bottom:40px;overflow:visible}
+#s7 h2{font:800 120px/1.25 var(--display)}
+#s7 h2 em{font-style:normal;color:var(--violet-soft)}
+#s7 p{font:500 42px var(--body);color:#cfe3d8;margin-top:22px}
+#s7 .btn{margin-top:60px;display:inline-flex;align-items:center;gap:22px;font:700 46px var(--display);background:var(--violet);color:#fff;
+  padding:30px 70px;border-radius:999px;box-shadow:0 20px 60px -10px rgba(139,92,246,.7)}
+#s7 .contact{margin-top:56px;display:flex;gap:70px;font:600 38px 'IBM Plex Sans',sans-serif;color:#e6f2ec;direction:ltr}
+#s7 .contact b{color:var(--mint);font-weight:600}
+
+/* ---------- Controls ---------- */
+#controls{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;direction:rtl;
+  background:rgba(10,20,15,.82);backdrop-filter:blur(10px);padding:10px 16px;border-radius:999px;color:#fff;z-index:10;
+  font:500 15px var(--body);transition:opacity .4s;box-shadow:0 10px 30px rgba(0,0,0,.4);width:min(720px,calc(100vw - 32px))}
+#controls button{background:rgba(255,255,255,.1);border:0;color:#fff;height:40px;min-width:40px;padding:0 14px;border-radius:999px;cursor:pointer;
+  font:600 14px var(--body);display:inline-flex;align-items:center;justify-content:center;gap:6px}
+#controls button:hover{background:rgba(255,255,255,.2)}
+#controls button.rec{background:#b42318}
+#controls input{flex:1;accent-color:var(--violet-glow);direction:ltr;min-width:60px}
+#controls .t{font-variant-numeric:tabular-nums;opacity:.8;direction:ltr;min-width:84px;text-align:center}
+body.idle #controls,body.recording #controls{opacity:0;pointer-events:none}
+body.idle{cursor:none}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+
+  <!-- S1: Logo -->
+  <section class="scene" id="s1">
+    <div class="grid-bg"></div>
+    <div class="rays"></div>
+    <div class="flash"></div>
+    <div id="pixels1"></div>
+    <div id="lockup">
+      <div class="divider"></div>
+      <svg id="mark" viewBox="0 0 48 48">
+        <defs><clipPath id="cut"><rect width="48" height="33.5"/></clipPath>
+          <filter id="boltGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <path id="chevR" d="M34 12l9.5 12L34 36" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+        <path id="chevL" d="M14 12 4.5 24 14 36" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+        <g clip-path="url(#cut)"><path id="bolt" d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#8b5cf6" filter="url(#boltGlow)"/></g>
+        <rect id="px1" x="19.4" y="35" width="3.4" height="3.4" fill="#8b5cf6"/>
+        <rect id="px2" x="17.3" y="40.2" width="2.6" height="2.6" fill="#8b5cf6"/>
+      </svg>
+      <div id="wordmark">
+        <span class="name">ضوء</span>
+        <span class="sub">للحلول البرمجية</span>
+        <span class="en">DAW SOFTWARE SOLUTIONS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- S2: Tagline -->
+  <section class="scene" id="s2">
+    <div class="grid-bg light"></div>
+    <div class="glow" style="width:700px;height:700px;background:rgba(139,92,246,.18);top:-200px;left:-150px"></div>
+    <div class="glow" style="width:800px;height:800px;background:rgba(0,84,48,.12);bottom:-300px;right:-200px"></div>
+    <div class="wrap">
+      <div class="eyebrow"><i></i>شركة سعودية رائدة في التحول الرقمي</div>
+      <div>
+        <div class="line"><span class="w"><span>نبني</span></span><span class="w"><span>حلولاً</span></span><span class="w"><span>رقمية</span></span></div>
+        <div class="line"><span class="w"><span class="shine">تُضيء</span></span><span class="w"><span>مستقبل</span></span><span class="w"><span>أعمالك</span></span></div>
+      </div>
+      <p class="desc">من تطوير التطبيقات والمواقع إلى الحلول السحابية والذكاء الاصطناعي</p>
+    </div>
+  </section>
+
+  <!-- S3: Services -->
+  <section class="scene" id="s3">
+    <div class="grid-bg light"></div>
+    <div class="head">
+      <div class="eyebrow"><i></i>خدماتنا</div>
+      <h2 class="h2">حلول برمجية شاملة لكل مرحلة</h2>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M10 9l-2 2 2 2M14 9l2 2-2 2"/></svg></div><h3>تطوير المواقع والتطبيقات</h3><span class="sweep"></span></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8"/><path d="M21 4v5h-5M3 20v-5h5"/></svg></div><h3>التحول الرقمي</h3><span class="sweep"></span></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H7a5 5 0 1 1 1.1-9.9A6 6 0 0 1 19.6 11 4 4 0 0 1 17.5 19Z"/></svg></div><h3>الحوسبة السحابية</h3><span class="sweep"></span></div>
+      <div class="card hot"><span class="tag">جديد</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M10 10h4v4h-4zM9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h3>الذكاء الاصطناعي وتحليل البيانات</h3><span class="sweep"></span></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>تجربة المستخدم UI/UX</h3><span class="sweep"></span></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L22 7H6"/></svg></div><h3>التجارة الإلكترونية</h3><span class="sweep"></span></div>
+    </div>
+  </section>
+
+  <!-- S4: Process -->
+  <section class="scene" id="s4">
+    <div class="grid-bg light"></div>
+    <div class="head">
+      <div class="eyebrow"><i></i>كيف نعمل</div>
+      <h2 class="h2">رحلة واضحة من الفكرة إلى الإطلاق</h2>
+    </div>
+    <div class="track"><div class="fill"></div></div>
+    <div class="steps">
+      <div class="step"><div class="node">01</div><h4>الاكتشاف والتحليل</h4><p>نفهم أهدافك ونحدد النطاق</p></div>
+      <div class="step"><div class="node">02</div><h4>التصميم وتجربة المستخدم</h4><p>نماذج تفاعلية تعتمدها أولاً</p></div>
+      <div class="step"><div class="node">03</div><h4>التطوير والاختبار</h4><p>Sprints قصيرة وجودة شاملة</p></div>
+      <div class="step last"><div class="node">04</div><h4>الإطلاق والدعم</h4><p>نراقب الأداء ونستمر معك</p></div>
+    </div>
+  </section>
+
+  <!-- S5: Stats -->
+  <section class="scene" id="s5">
+    <div class="grid-bg"></div>
+    <div class="head"><h2 class="h2">نضيء طريق <em>نجاحك الرقمي</em></h2></div>
+    <div class="stats">
+      <div class="stat"><div class="num"><span data-to="150">0</span><sup>+</sup></div><div class="lbl">عميل سعيد</div><i class="bar"></i></div>
+      <div class="stat"><div class="num"><span data-to="300">0</span><sup>+</sup></div><div class="lbl">مشروع منجز</div><i class="bar"></i></div>
+      <div class="stat"><div class="num"><span data-to="8">0</span><sup>+</sup></div><div class="lbl">سنوات خبرة</div><i class="bar"></i></div>
+      <div class="stat"><div class="num"><span data-to="98">0</span><sup>%</sup></div><div class="lbl">نسبة رضا العملاء</div><i class="bar"></i></div>
+    </div>
+  </section>
+
+  <!-- S6: Tech -->
+  <section class="scene" id="s6">
+    <div class="grid-bg"></div>
+    <div class="head"><h2 class="h2">نعمل بأحدث التقنيات العالمية</h2></div>
+    <div class="row" id="row1" style="top:470px"><span>React</span><span class="v">Next.js</span><span>Flutter</span><span>Node.js</span><span class="v">Laravel</span><span>Python</span><span>React</span><span class="v">Next.js</span><span>Flutter</span><span>Node.js</span><span class="v">Laravel</span><span>Python</span></div>
+    <div class="row" id="row2" style="top:650px"><span>PostgreSQL</span><span>Docker</span><span class="v">AWS</span><span>Azure</span><span>Google Cloud</span><span class="v">Figma</span><span>PostgreSQL</span><span>Docker</span><span class="v">AWS</span><span>Azure</span><span>Google Cloud</span><span class="v">Figma</span></div>
+  </section>
+
+  <!-- S7: CTA -->
+  <section class="scene" id="s7">
+    <div class="grid-bg"></div>
+    <div class="rays"></div>
+    <div class="wrap">
+      <svg class="m" viewBox="0 0 48 48">
+        <defs><clipPath id="cut2"><rect width="48" height="33.5"/></clipPath></defs>
+        <path class="c" d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="square"/>
+        <path class="b" d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#8b5cf6" clip-path="url(#cut2)"/>
+        <rect x="19.4" y="35" width="3.4" height="3.4" fill="#8b5cf6"/><rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#8b5cf6"/>
+      </svg>
+      <h2>جاهز <em>لإضاءة</em> مشروعك؟</h2>
+      <p>شريكك الموثوق في رحلة التحول الرقمي</p>
+      <div class="btn">ابدأ مشروعك <span>←</span></div>
+      <div class="contact"><span><b>daw.sa</b></span><span>info@daw.sa</span></div>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<div id="controls">
+  <button id="playBtn" title="تشغيل / إيقاف (مسافة)">⏸</button>
+  <button id="restartBtn" title="إعادة (R)">↺</button>
+  <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="الموقع الزمني">
+  <span class="t" id="time">0.0 / 0.0</span>
+  <button id="recBtn" class="rec" title="تسجيل فيديو WebM">● تسجيل</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+
+/* fit 1920x1080 stage to window */
+const stage = $('#stage');
+function fit(){ const k = Math.min(innerWidth/1920, innerHeight/1080); stage.style.transform = `scale(${k})`; }
+addEventListener('resize', fit); fit();
+
+/* floating pixels (brand motif) for intro */
+const pxWrap = $('#pixels1');
+for (let i = 0; i < 46; i++){
+  const d = document.createElement('i'); d.className = 'pixel';
+  const s = [6,8,10,14][i % 4];
+  Object.assign(d.style,{width:s+'px',height:s+'px',left:Math.random()*1920+'px',top:Math.random()*1080+'px',
+    opacity:0,background: i % 3 ? 'rgba(139,92,246,.8)' : 'rgba(92,207,149,.7)'});
+  pxWrap.appendChild(d);
+}
+
+/* stroke-draw helper */
+function prepDraw(el){ const L = el.getTotalLength(); gsap.set(el,{strokeDasharray:L,strokeDashoffset:L}); return L; }
+
+function reveal(tl, id, at, from = '50% 50%'){
+  tl.set(id,{visibility:'visible',zIndex:5,clipPath:`circle(0% at ${from})`}, at)
+    .to(id,{clipPath:`circle(150% at ${from})`,duration:1.1,ease:'power3.inOut'}, at);
+}
+function hideScene(tl, id, at){ tl.set(id,{visibility:'hidden',zIndex:0}, at); }
+
+function build(){
+  const tl = gsap.timeline({paused:true});
+  gsap.set('.scene',{visibility:'hidden'});
+
+  /* ---------- S1: logo (0 – 7.2s) ---------- */
+  tl.set('#s1',{visibility:'visible',zIndex:1}, 0);
+  const pixels = $$('#pixels1 .pixel');
+  tl.fromTo(pixels,{opacity:0,y:40},{opacity:()=>.3+Math.random()*.6,y:-40,duration:4,stagger:{each:.03,from:'random'},ease:'sine.out'},0)
+    .to(pixels,{y:'-=120',duration:7,ease:'none'},0.5);
+  prepDraw($('#chevR')); prepDraw($('#chevL'));
+  tl.set('#mark',{scale:1,x:0}, 0)
+    .to('#chevR',{strokeDashoffset:0,duration:.9,ease:'power2.inOut'},0.4)
+    .to('#chevL',{strokeDashoffset:0,duration:.9,ease:'power2.inOut'},0.55)
+    .fromTo('#bolt',{y:-48,opacity:0},{y:0,opacity:1,duration:.32,ease:'power4.in'},1.45)
+    .fromTo('#s1 .flash',{opacity:0,scale:.2},{opacity:1,scale:1,duration:.25,ease:'power2.out'},1.75)
+    .to('#s1 .flash',{opacity:0,scale:1.6,duration:1.4,ease:'power2.out'},2.0)
+    .fromTo('#mark',{scale:1},{scale:1.08,duration:.12,yoyo:true,repeat:1,ease:'power1.out'},1.75)
+    .to('#chevR,#chevL',{stroke:'#5ccf95',duration:.6},1.8)
+    .fromTo(['#px1','#px2'],{opacity:0,y:-4},{opacity:1,y:0,duration:.25,stagger:.12,ease:'back.out(3)'},1.95)
+    .fromTo('#s1 .rays',{opacity:0,rotate:0},{opacity:1,rotate:25,duration:5.5,ease:'none'},1.8)
+    /* move into lockup */
+    .to('#mark',{x:220,scale:.72,duration:1,ease:'power3.inOut'},2.9)
+    .to('#lockup',{x:190,duration:1,ease:'power3.inOut'},2.9)
+    .to('#lockup .divider',{scaleY:1,duration:.6,ease:'power2.out'},3.5)
+    .to('#wordmark .name',{clipPath:'inset(0 0 0 0%)',duration:.9,ease:'power3.out'},3.6)
+    .from('#wordmark .sub',{opacity:0,y:30,duration:.6,ease:'power2.out'},4.05)
+    .from('#wordmark .en',{opacity:0,y:20,duration:.6,ease:'power2.out'},4.25)
+    .to('#lockup',{scale:1.04,duration:2.4,ease:'none'},4.4);
+
+  /* ---------- S2: tagline (6.6 – 13s) ---------- */
+  reveal(tl,'#s2',6.6);
+  hideScene(tl,'#s1',7.8);
+  tl.from('#s2 .eyebrow',{opacity:0,y:-30,duration:.6,ease:'power2.out'},7.2)
+    .from('#s2 .w > span',{yPercent:110,duration:.8,stagger:.11,ease:'power4.out'},7.4)
+    .to('#s2 .shine',{backgroundPosition:'0% 0',duration:1.6,ease:'power2.inOut'},8.6)
+    .from('#s2 .desc',{opacity:0,y:30,duration:.7,ease:'power2.out'},9.0)
+    .to('#s2 .wrap',{scale:1.03,duration:3.5,ease:'none'},9.2);
+
+  /* ---------- S3: services (12.4 – 20.5s) ---------- */
+  reveal(tl,'#s3',12.4,'50% 100%');
+  hideScene(tl,'#s2',13.6);
+  tl.from('#s3 .eyebrow',{opacity:0,y:-20,duration:.5},12.9)
+    .from('#s3 .h2',{opacity:0,y:40,duration:.7,ease:'power3.out'},13.0)
+    .from('#s3 .card',{opacity:0,y:80,scale:.9,duration:.7,stagger:.14,ease:'back.out(1.6)'},13.5)
+    .from('#s3 .card .ic',{rotate:-25,scale:.4,duration:.6,stagger:.14,ease:'back.out(2.5)'},13.7)
+    .to('#s3 .card .sweep',{left:'110%',duration:1.1,stagger:.12,ease:'power2.inOut'},15.6)
+    .to('#s3 .card.hot',{y:-14,boxShadow:'0 30px 60px -18px rgba(109,40,217,.45)',borderColor:'#a78bfa',duration:.5,ease:'power2.out'},17.0)
+    .fromTo('#s3 .card.hot .tag',{scale:1},{scale:1.2,duration:.25,yoyo:true,repeat:3},17.2)
+    .to('#s3 .cards',{scale:1.025,duration:4,ease:'none'},15.5);
+
+  /* ---------- S4: process (20 – 28s) ---------- */
+  reveal(tl,'#s4',20.0,'100% 50%');
+  hideScene(tl,'#s3',21.2);
+  tl.from('#s4 .eyebrow',{opacity:0,y:-20,duration:.5},20.5)
+    .from('#s4 .h2',{opacity:0,y:40,duration:.7,ease:'power3.out'},20.6)
+    .from('#s4 .step',{opacity:0,y:60,duration:.6,stagger:.12,ease:'power3.out'},21.0);
+  const steps = $$('#s4 .step');
+  steps.forEach((s,i)=>{
+    const t = 22.0 + i*1.15;
+    tl.to('#s4 .fill',{scaleX:i/3,duration:.9,ease:'power2.inOut'}, t-0.9 < 22 ? 22 : t-0.9)
+      .call(()=>s.classList.add('on'),null,t)
+      .call(()=>s.classList.remove('on'),null,t-0.001)  /* keeps state correct when scrubbing backwards */
+      .fromTo(s.querySelector('.node'),{scale:1},{scale:1.15,duration:.2,yoyo:true,repeat:1,ease:'power2.out'},t);
+  });
+
+  /* ---------- S5: stats (27.6 – 34s) ---------- */
+  reveal(tl,'#s5',27.6);
+  hideScene(tl,'#s4',28.8);
+  tl.from('#s5 .h2',{opacity:0,y:40,duration:.8,ease:'power3.out'},28.1)
+    .from('#s5 .stat',{opacity:0,y:80,duration:.7,stagger:.12,ease:'back.out(1.4)'},28.5);
+  $$('#s5 [data-to]').forEach((el,i)=>{
+    const o = {v:0}, to = +el.dataset.to;
+    tl.to(o,{v:to,duration:2.2,ease:'power3.out',onUpdate:()=>el.textContent=Math.round(o.v)},29.0+i*.12);
+  });
+  tl.to('#s5 .stat .bar',{scaleX:1,duration:2.2,stagger:.12,ease:'power3.out'},29.0)
+    .to('#s5 .stats',{scale:1.03,duration:4,ease:'none'},30);
+
+  /* ---------- S6: tech (33.6 – 38.5s) ---------- */
+  reveal(tl,'#s6',33.6,'0% 50%');
+  hideScene(tl,'#s5',34.8);
+  tl.from('#s6 .h2',{opacity:0,y:40,duration:.7,ease:'power3.out'},34.1)
+    .fromTo('#row1',{x:-200},{x:-1700,duration:5.2,ease:'none'},33.6)
+    .fromTo('#row2',{x:-1800},{x:-300,duration:5.2,ease:'none'},33.6)
+    .from('#s6 .row span',{opacity:0,scale:.8,duration:.4,stagger:.03},34.0);
+
+  /* ---------- S7: CTA (38.4 – 46s) ---------- */
+  reveal(tl,'#s7',38.4);
+  hideScene(tl,'#s6',39.6);
+  const c2 = $('#s7 .c'); prepDraw(c2);
+  tl.to(c2,{strokeDashoffset:0,duration:1,ease:'power2.inOut'},38.9)
+    .from('#s7 .b',{y:-40,opacity:0,duration:.35,ease:'power4.in'},39.6)
+    .from('#s7 .m rect',{opacity:0,scale:0,transformOrigin:'center',duration:.3,stagger:.1,ease:'back.out(3)'},39.9)
+    .fromTo('#s7 .rays',{rotate:0,opacity:0},{rotate:30,opacity:1,duration:7,ease:'none'},38.6)
+    .from('#s7 h2',{opacity:0,y:50,duration:.8,ease:'power3.out'},40.2)
+    .from('#s7 p',{opacity:0,y:30,duration:.7,ease:'power2.out'},40.6)
+    .from('#s7 .btn',{opacity:0,scale:.6,duration:.7,ease:'back.out(2)'},41.0)
+    .to('#s7 .btn',{scale:1.06,duration:.5,yoyo:true,repeat:3,ease:'sine.inOut'},41.9)
+    .from('#s7 .contact span',{opacity:0,y:20,duration:.5,stagger:.15},41.4)
+    .to({}, {duration:2.6}, 43.4); /* hold the end card */
+
+  return tl;
+}
+
+const tl = build();
+
+/* ---------- Controls ---------- */
+const playBtn = $('#playBtn'), scrub = $('#scrub'), time = $('#time');
+const fmt = s => s.toFixed(1);
+tl.eventCallback('onUpdate',()=>{ scrub.value = tl.progress()*1000; time.textContent = `${fmt(tl.time())} / ${fmt(tl.duration())}`; });
+tl.eventCallback('onComplete',()=>{ playBtn.textContent = '▶'; if (recorder) stopRec(); });
+function toggle(){ if (tl.progress() === 1) tl.restart(); else tl.paused(!tl.paused()); playBtn.textContent = tl.paused() ? '▶' : '⏸'; }
+playBtn.onclick = toggle;
+$('#restartBtn').onclick = ()=>{ tl.restart(); playBtn.textContent = '⏸'; };
+scrub.oninput = ()=>{ tl.pause(); tl.progress(scrub.value/1000); playBtn.textContent = '▶'; };
+addEventListener('keydown',e=>{ if (e.code === 'Space'){ e.preventDefault(); toggle(); } if (e.key === 'r' || e.key === 'R') $('#restartBtn').click(); });
+
+let idleT; addEventListener('mousemove',()=>{ document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(()=>document.body.classList.add('idle'),2200); });
+
+/* ---------- Record to WebM (Chrome/Edge: pick "this tab") ---------- */
+let recorder, chunks = [], recStream;
+$('#recBtn').onclick = async ()=>{
+  try{
+    recStream = await navigator.mediaDevices.getDisplayMedia({video:{frameRate:60},audio:false,preferCurrentTab:true,selfBrowserSurface:'include'});
+  }catch(e){ return; }
+  const mime = ['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(m=>MediaRecorder.isTypeSupported(m));
+  recorder = new MediaRecorder(recStream,{mimeType:mime,videoBitsPerSecond:16e6}); chunks = [];
+  recorder.ondataavailable = e => e.data.size && chunks.push(e.data);
+  recorder.onstop = ()=>{
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(chunks,{type:'video/webm'}));
+    a.download = 'daw-motion.webm'; a.click(); recStream.getTracks().forEach(t=>t.stop()); recorder = null;
+    document.body.classList.remove('recording');
+  };
+  document.body.classList.add('recording');
+  tl.pause(0);
+  setTimeout(()=>{ recorder.start(); tl.restart(); playBtn.textContent = '⏸'; }, 600);
+};
+function stopRec(){ setTimeout(()=>recorder && recorder.state === 'recording' && recorder.stop(), 300); }
+
+/* start once fonts are ready so text measures correctly */
+document.fonts.ready.then(()=>setTimeout(()=>tl.play(),300));
+</script>
+</body>
+</html>

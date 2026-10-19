@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ختم ضوء">
+  <title>ختم ضوء</title>
+  <style>@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@800&amp;family=IBM+Plex+Sans:wght@600&amp;family=IBM+Plex+Sans+Arabic:wght@500&amp;display=swap');</style>
+  <defs>
+    <path id="arcT" d="M14 50a36 36 0 0 1 72 0"/>
+    <path id="arcB" d="M12 50a38 38 0 0 0 76 0"/>
+  </defs>
+  <circle cx="50" cy="50" r="50" fill="#00341e"/>
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#c9a14a" stroke-width="1.6"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#c9a14a" stroke-width=".6"/>
+  <circle cx="50" cy="50" r="27" fill="none" stroke="#c9a14a" stroke-width=".6"/>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="6.2" letter-spacing="1.6" fill="#ffffff"><textPath href="#arcT" startOffset="50%" text-anchor="middle">DAW SOFTWARE SOLUTIONS</textPath></text>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="5" letter-spacing="1.4" fill="#ffffff"><textPath href="#arcB" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">RIYADH · SAUDI ARABIA</textPath></text>
+  <circle cx="14.5" cy="57" r="1" fill="#c9a14a"/><circle cx="85.5" cy="57" r="1" fill="#c9a14a"/>
+  <svg x="36" y="30" width="28" height="28" viewBox="0 0 48 48"><defs><clipPath id="s-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#c9a14a" clip-path="url(#s-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#c9a14a"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#c9a14a"/></svg>
+  <text x="50" y="68" text-anchor="middle" font-family="Alexandria, sans-serif" font-weight="800" font-size="9" fill="#ffffff">ضوء</text>
+</svg>

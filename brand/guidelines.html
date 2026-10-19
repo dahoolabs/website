@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل الهوية | ضوء</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;800&family=IBM+Plex+Sans:wght@500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy:#00341e; --flag:#005430; --gold:#6d28d9; --gold-d:#005430; --ivory:#ffffff; --slate:#55625b; --line:#dfe7e2; --soft:#f4f7f5; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:'IBM Plex Sans Arabic',sans-serif; color:#1c2a23; background:#fff; line-height:1.8; }
+        .wrap { max-width:1040px; margin:0 auto; padding:0 24px; }
+        header { background:var(--navy); color:#fff; padding:72px 0 64px; }
+        header .hero-lockup { width:min(420px,100%); height:auto; display:block; margin-bottom:28px; }
+        header h1 { font-family:'Alexandria',sans-serif; font-size:clamp(28px,5vw,40px); }
+        header p { color:#a3b4ab; max-width:620px; }
+        .kicker { font-family:'IBM Plex Sans',sans-serif; font-weight:600; letter-spacing:.22em; font-size:12px; color:var(--gold); direction:ltr; text-align:right; margin-bottom:8px; }
+        section { padding:64px 0; border-bottom:1px solid var(--line); }
+        h2 { font-family:'Alexandria',sans-serif; font-size:26px; color:var(--flag); margin-bottom:8px; }
+        h2 + p { color:var(--slate); margin-bottom:32px; max-width:680px; }
+        .grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+        .tile { border-radius:14px; border:1px solid var(--line); min-height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:24px; }
+        .tile svg { width:88px; height:88px; }
+        .tile .cap { font-size:13px; color:var(--slate); }
+        .navy { background:var(--navy); border-color:var(--navy); } .navy .cap { color:#a3b4ab; }
+        .goldbg { background:var(--gold-d); border-color:var(--gold-d); } .goldbg .cap { color:#fff; }
+        .meaning { display:grid; grid-template-columns:240px 1fr; gap:40px; align-items:center; }
+        .meaning svg { width:100%; height:auto; }
+        .meaning ul { list-style:none; display:grid; gap:18px; }
+        .meaning li strong { display:block; font-family:'Alexandria',sans-serif; color:var(--navy); }
+        .meaning li span { color:var(--slate); }
+        .dot { display:inline-block; width:10px; height:10px; border-radius:2px; margin-left:8px; vertical-align:middle; }
+        .wide svg { width:min(360px,100%); height:auto; }
+        .seal svg { width:170px; height:170px; }
+        .swatches { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); }
+        .swatch { border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+        .swatch:nth-child(2) .chip { box-shadow:inset 0 -1px 0 var(--line); }
+        .chip { height:110px; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; }
+        .chip span { font-family:'Alexandria',sans-serif; font-weight:700; }
+        .chip small { font-family:'IBM Plex Sans',sans-serif; opacity:.8; direction:ltr; text-align:right; }
+        .swatch dl { display:grid; grid-template-columns:auto 1fr; gap:2px 12px; padding:14px 16px 0; font-size:13px; }
+        .swatch dt { color:var(--slate); font-family:'IBM Plex Sans',sans-serif; }
+        .swatch dd { font-family:'IBM Plex Sans',monospace; direction:ltr; text-align:right; }
+        .swatch p { padding:8px 16px 16px; font-size:13px; color:var(--slate); }
+        .note { font-size:13px; color:var(--slate); margin-top:16px; }
+        .type { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+        .type div { border:1px solid var(--line); border-radius:14px; padding:24px; }
+        .type .sample { font-size:34px; color:var(--navy); line-height:1.3; margin:6px 0 10px; }
+        .type small { color:var(--slate); }
+        .rules { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+        .rule { background:var(--soft); border-radius:14px; padding:24px; }
+        .rule h3 { font-family:'Alexandria',sans-serif; font-size:18px; color:var(--navy); margin-bottom:6px; }
+        .clear { position:relative; width:150px; height:150px; margin:0 auto 16px; border:1px dashed var(--gold); display:flex; align-items:center; justify-content:center; }
+        .clear svg { width:100px; height:100px; outline:1px solid rgba(109,40,217,.3); }
+        .donts .tile { position:relative; min-height:170px; }
+        .donts .tile::after { content:'✕'; position:absolute; top:10px; left:14px; color:#b91c1c; font-weight:700; }
+        .donts svg { width:72px; height:72px; }
+        .ratio { display:flex; height:52px; border-radius:12px; overflow:hidden; border:1px solid var(--line); font-size:13px; }
+        .ratio div { display:flex; align-items:center; justify-content:center; white-space:nowrap; }
+        .list { list-style:none; display:grid; gap:10px; margin-top:12px; }
+        .list li { display:flex; align-items:center; gap:10px; }
+        .list .sq { width:8px; height:8px; background:var(--gold); border-radius:1px; flex-shrink:0; }
+        .list.no li::before { content:'✕'; color:#b91c1c; font-weight:700; }
+        .files { display:grid; gap:10px; }
+        .files a { display:flex; justify-content:space-between; gap:16px; padding:14px 18px; border:1px solid var(--line); border-radius:12px; color:var(--navy); text-decoration:none; }
+        .files a:hover { border-color:var(--gold); }
+        .files code { font-family:'IBM Plex Sans',monospace; direction:ltr; color:var(--gold-d); }
+        footer { padding:40px 0; color:var(--slate); font-size:13px; }
+        @media (max-width:700px) { .meaning { grid-template-columns:1fr; } .meaning svg { max-width:200px; margin:0 auto; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <svg class="hero-lockup" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110" role="img" aria-label="ضوء للحلول البرمجية">
+  <rect width="360" height="110" fill="#00341e"/>
+  <svg x="262" y="23" width="64" height="64" viewBox="0 0 48 48"><defs><clipPath id="l-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#a78bfa" clip-path="url(#l-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#a78bfa"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#a78bfa"/></svg>
+  <rect x="244" y="20" width="1.2" height="70" fill="#a78bfa"/>
+  <text x="226" y="58" text-anchor="end" direction="rtl" font-family="Alexandria, sans-serif" font-weight="800" font-size="40" fill="#ffffff">ضوء</text>
+  <text x="226" y="79" text-anchor="end" direction="rtl" font-family="'IBM Plex Sans Arabic', sans-serif" font-weight="500" font-size="13" fill="#a3b4ab">للحلول البرمجية</text>
+  <text x="226" y="96" text-anchor="end" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="9.5" letter-spacing="2.2" fill="#a3b4ab">DAW SOFTWARE SOLUTIONS</text>
+</svg>
+            <p class="kicker">BRAND GUIDELINES · V6</p>
+            <h1>دليل الهوية البصرية</h1>
+            <p>القواعد الأساسية لاستخدام شعار ضوء وألوانه وخطوطه، لضمان ظهور الهوية بشكل متسق ورسمي في كل مكان.</p>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section>
+            <h2>معنى الشعار</h2>
+            <p>يجمع الرمز بين اسم الشركة ونشاطها في شكل واحد بسيط.</p>
+            <div class="meaning">
+                <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/>
+</svg>
+                <ul>
+                    <li><strong><i class="dot" style="background:var(--flag)"></i>القوسان &lt; &gt;</strong><span>رمز الكود البرمجي، ويمثلان مجال عمل الشركة: تطوير البرمجيات. لونهما أخضر العلم السعودي على الأبيض، وأبيض على الأخضر، رمزاً لهوية الشركة السعودية.</span></li>
+                    <li><strong><i class="dot" style="background:var(--gold)"></i>الومضة</strong><span>تأخذ مكان الشرطة في &lt;/&gt; وتمثل "الضوء"، اسم الشركة، إلى جانب السرعة والطاقة. لونها بنفسجي: لمسة الابتكار في الهوية.</span></li>
+                    <li><strong><i class="dot" style="background:var(--gold)"></i>البكسلات</strong><span>طرف الومضة يتحول إلى مربعات رقمية بنفس لونها: الفكرة تتحول إلى منتج رقمي.</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>نسخ الرمز</h2>
+            <p>استخدم النسخة المناسبة للخلفية. لا تضع النسخة الملونة على خلفية تقلل وضوحها.</p>
+            <div class="grid">
+                <div class="tile"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/>
+</svg><span class="cap">على الخلفيات الفاتحة</span></div>
+                <div class="tile navy"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#a78bfa" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#a78bfa"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#a78bfa"/>
+</svg><span class="cap">على الخلفيات الداكنة</span></div>
+                <div class="tile goldbg"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#ffffff" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#ffffff"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#ffffff"/>
+</svg><span class="cap">أبيض: على الأخضر والصور</span></div>
+                <div class="tile"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#005430" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#005430"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#005430"/>
+</svg><span class="cap">لون واحد: الطباعة والختم</span></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>الشعار الكامل</h2>
+            <p>الرمز مع الاسم بالعربية والإنجليزية، يفصل بينهما خط بنفسجي. يُستخدم في المراسلات والعروض والمناقصات.</p>
+            <div class="grid">
+                <div class="tile wide"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110" role="img" aria-label="ضوء للحلول البرمجية">
+  
+  <svg x="262" y="23" width="64" height="64" viewBox="0 0 48 48"><defs><clipPath id="l-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#l-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/></svg>
+  <rect x="244" y="20" width="1.2" height="70" fill="#6d28d9"/>
+  <text x="226" y="58" text-anchor="end" direction="rtl" font-family="Alexandria, sans-serif" font-weight="800" font-size="40" fill="#005430">ضوء</text>
+  <text x="226" y="79" text-anchor="end" direction="rtl" font-family="'IBM Plex Sans Arabic', sans-serif" font-weight="500" font-size="13" fill="#55625b">للحلول البرمجية</text>
+  <text x="226" y="96" text-anchor="end" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="9.5" letter-spacing="2.2" fill="#55625b">DAW SOFTWARE SOLUTIONS</text>
+</svg></div>
+                <div class="tile wide navy"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110" role="img" aria-label="ضوء للحلول البرمجية">
+  <rect width="360" height="110" fill="#00341e"/>
+  <svg x="262" y="23" width="64" height="64" viewBox="0 0 48 48"><defs><clipPath id="l-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#a78bfa" clip-path="url(#l-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#a78bfa"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#a78bfa"/></svg>
+  <rect x="244" y="20" width="1.2" height="70" fill="#a78bfa"/>
+  <text x="226" y="58" text-anchor="end" direction="rtl" font-family="Alexandria, sans-serif" font-weight="800" font-size="40" fill="#ffffff">ضوء</text>
+  <text x="226" y="79" text-anchor="end" direction="rtl" font-family="'IBM Plex Sans Arabic', sans-serif" font-weight="500" font-size="13" fill="#a3b4ab">للحلول البرمجية</text>
+  <text x="226" y="96" text-anchor="end" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="9.5" letter-spacing="2.2" fill="#a3b4ab">DAW SOFTWARE SOLUTIONS</text>
+</svg></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>الختم الرسمي</h2>
+            <p>للعقود وعروض الأسعار والشهادات. النسخة أحادية اللون مناسبة لصناعة ختم الحبر.</p>
+            <div class="grid">
+                <div class="tile seal"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ختم ضوء">
+  <defs>
+    <path id="arcT" d="M14 50a36 36 0 0 1 72 0"/>
+    <path id="arcB" d="M12 50a38 38 0 0 0 76 0"/>
+  </defs>
+  
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#005430" stroke-width="1.6"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#6d28d9" stroke-width=".6"/>
+  <circle cx="50" cy="50" r="27" fill="none" stroke="#6d28d9" stroke-width=".6"/>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="6.2" letter-spacing="1.6" fill="#005430"><textPath href="#arcT" startOffset="50%" text-anchor="middle">DAW SOFTWARE SOLUTIONS</textPath></text>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="5" letter-spacing="1.4" fill="#005430"><textPath href="#arcB" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">RIYADH · SAUDI ARABIA</textPath></text>
+  <circle cx="14.5" cy="57" r="1" fill="#6d28d9"/><circle cx="85.5" cy="57" r="1" fill="#6d28d9"/>
+  <svg x="36" y="30" width="28" height="28" viewBox="0 0 48 48"><defs><clipPath id="s-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#s-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/></svg>
+  <text x="50" y="68" text-anchor="middle" font-family="Alexandria, sans-serif" font-weight="800" font-size="9" fill="#005430">ضوء</text>
+</svg></div>
+                <div class="tile seal navy"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ختم ضوء">
+  <defs>
+    <path id="arcT" d="M14 50a36 36 0 0 1 72 0"/>
+    <path id="arcB" d="M12 50a38 38 0 0 0 76 0"/>
+  </defs>
+  <circle cx="50" cy="50" r="50" fill="#005430"/>
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#ffffff" stroke-width="1.6"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#a78bfa" stroke-width=".6"/>
+  <circle cx="50" cy="50" r="27" fill="none" stroke="#a78bfa" stroke-width=".6"/>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="6.2" letter-spacing="1.6" fill="#ffffff"><textPath href="#arcT" startOffset="50%" text-anchor="middle">DAW SOFTWARE SOLUTIONS</textPath></text>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="5" letter-spacing="1.4" fill="#ffffff"><textPath href="#arcB" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">RIYADH · SAUDI ARABIA</textPath></text>
+  <circle cx="14.5" cy="57" r="1" fill="#a78bfa"/><circle cx="85.5" cy="57" r="1" fill="#a78bfa"/>
+  <svg x="36" y="30" width="28" height="28" viewBox="0 0 48 48"><defs><clipPath id="s-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#a78bfa" clip-path="url(#s-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#a78bfa"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#a78bfa"/></svg>
+  <text x="50" y="68" text-anchor="middle" font-family="Alexandria, sans-serif" font-weight="800" font-size="9" fill="#ffffff">ضوء</text>
+</svg></div>
+                <div class="tile seal"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ختم ضوء">
+  <defs>
+    <path id="arcT" d="M14 50a36 36 0 0 1 72 0"/>
+    <path id="arcB" d="M12 50a38 38 0 0 0 76 0"/>
+  </defs>
+  
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#005430" stroke-width="1.6"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#005430" stroke-width=".6"/>
+  <circle cx="50" cy="50" r="27" fill="none" stroke="#005430" stroke-width=".6"/>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="6.2" letter-spacing="1.6" fill="#005430"><textPath href="#arcT" startOffset="50%" text-anchor="middle">DAW SOFTWARE SOLUTIONS</textPath></text>
+  <text font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="5" letter-spacing="1.4" fill="#005430"><textPath href="#arcB" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">RIYADH · SAUDI ARABIA</textPath></text>
+  <circle cx="14.5" cy="57" r="1" fill="#005430"/><circle cx="85.5" cy="57" r="1" fill="#005430"/>
+  <svg x="36" y="30" width="28" height="28" viewBox="0 0 48 48"><defs><clipPath id="s-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#005430" clip-path="url(#s-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#005430"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#005430"/></svg>
+  <text x="50" y="68" text-anchor="middle" font-family="Alexandria, sans-serif" font-weight="800" font-size="9" fill="#005430">ضوء</text>
+</svg></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>الألوان</h2>
+            <p>الأخضر والأبيض، لونا العلم السعودي، هما أساس الهوية، والأخضر بنفس الدرجة المعتمدة في دليل استخدام العلم الصادر عن الحكومة السعودية (2023). البنفسجي للمسات فقط ولا يُستخدم لمساحات كبيرة.</p>
+            <div class="swatches">
+        <div class="swatch">
+            <div class="chip" style="background:#005430;color:#ffffff"><span>أخضر العلم السعودي</span><small>Saudi Green · Pantone 3425 C</small></div>
+            <dl><dt>HEX</dt><dd>#005430</dd><dt>RGB</dt><dd>0, 84, 48</dd><dt>CMYK</dt><dd>C89 M15 Y97 K56</dd></dl>
+            <p>اللون الأساسي: الرمز والأزرار والعناوين</p>
+        </div>
+        <div class="swatch">
+            <div class="chip" style="background:#ffffff;color:#005430"><span>أبيض</span><small>White</small></div>
+            <dl><dt>HEX</dt><dd>#FFFFFF</dd><dt>RGB</dt><dd>255, 255, 255</dd><dt>CMYK*</dt><dd>C0 M0 Y0 K0</dd></dl>
+            <p>اللون الأساسي الثاني: الخلفيات، والرمز على الأخضر</p>
+        </div>
+        <div class="swatch">
+            <div class="chip" style="background:#00341e;color:#ffffff"><span>أخضر عميق</span><small>Deep Green</small></div>
+            <dl><dt>HEX</dt><dd>#00341E</dd><dt>RGB</dt><dd>0, 52, 30</dd><dt>CMYK*</dt><dd>C100 M0 Y42 K80</dd></dl>
+            <p>الخلفيات الداكنة والتذييل</p>
+        </div>
+        <div class="swatch">
+            <div class="chip" style="background:#6d28d9;color:#ffffff"><span>بنفسجي</span><small>Violet</small></div>
+            <dl><dt>HEX</dt><dd>#6D28D9</dd><dt>RGB</dt><dd>109, 40, 217</dd><dt>CMYK*</dt><dd>C50 M82 Y0 K15</dd></dl>
+            <p>لمسات فقط: الومضة والبكسلات والفواصل</p>
+        </div>
+        <div class="swatch">
+            <div class="chip" style="background:#a78bfa;color:#00341e"><span>بنفسجي فاتح</span><small>Light Violet</small></div>
+            <dl><dt>HEX</dt><dd>#A78BFA</dd><dt>RGB</dt><dd>167, 139, 250</dd><dt>CMYK*</dt><dd>C33 M44 Y0 K2</dd></dl>
+            <p>اللمسات البنفسجية على الخلفيات الداكنة</p>
+        </div>
+        <div class="swatch">
+            <div class="chip" style="background:#5ccf95;color:#00341e"><span>أخضر فاتح للنصوص</span><small>Light Green (screens)</small></div>
+            <dl><dt>HEX</dt><dd>#5CCF95</dd><dt>RGB</dt><dd>92, 207, 149</dd><dt>CMYK*</dt><dd>C56 M0 Y28 K19</dd></dl>
+            <p>نصوص خضراء على الخلفيات الداكنة في الموقع فقط</p>
+        </div>
+            </div>
+            <p class="note">قيم الأخضر الأساسي رسمية من دليل استخدام العلم السعودي: Pantone 3425 C · CMYK 89-15-97-56 · RGB 0-84-48.<br>* بقية قيم CMYK تقريبية محسوبة رقمياً، فاطلب من المطبعة مطابقتها بعيّنة مطبوعة.<br>الأخضر الفاتح ‎#5CCF95‎ والبنفسجي الفاتح ‎#A78BFA‎ للشاشات فقط، على الخلفيات الداكنة.<br>قاعدة التوزيع التقريبية: أخضر وأبيض نحو 90%، وبنفسجي لا يتجاوز 10%.</p>
+        </section>
+
+        <section>
+            <h2>دمج الألوان</h2>
+            <p>الأخضر والأبيض يحملان الهوية، والبنفسجي "لمسة الضوء": يظهر فقط حيث نريد لفت النظر، ولا يُمزج مع الأخضر أبداً.</p>
+            <div class="ratio">
+                <div style="flex:60;background:#fff;color:#1c2a23">أبيض 60% · المساحات</div>
+                <div style="flex:30;background:var(--flag);color:#fff">أخضر 30% · الهوية</div>
+                <div style="flex:10;background:var(--gold);color:#fff">10%</div>
+            </div>
+            <div class="rules" style="margin-top:24px">
+                <div class="rule">
+                    <h3>اللمسات البنفسجية المعتمدة</h3>
+                    <ul class="list">
+                        <li><span class="sq"></span>الومضة والبكسلات في الشعار</li>
+                        <li><span class="sq"></span>مربع بكسل قبل اسم القسم</li>
+                        <li><span class="sq"></span>نقطة في نهاية العناوين الكبيرة</li>
+                        <li><span class="sq"></span>شارة "جديد" للخدمات المبتكرة</li>
+                        <li><span class="sq"></span>خط تحت الروابط عند التمرير</li>
+                        <li><span class="sq"></span>إطار التركيز عند التنقل بلوحة المفاتيح</li>
+                    </ul>
+                </div>
+                <div class="rule">
+                    <h3>ممنوعات</h3>
+                    <ul class="list no">
+                        <li>تدرّج لوني يمزج الأخضر بالبنفسجي</li>
+                        <li>أزرار بنفسجية: الزر الرئيسي أخضر دائماً</li>
+                        <li>نص بنفسجي على خلفية خضراء</li>
+                        <li>مساحات كبيرة بالبنفسجي: خلفيات أو بطاقات كاملة</li>
+                        <li>تلوين همزة "ضوء" أو جزء من الاسم بلون مختلف</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>الخطوط</h2>
+            <p>ثلاثة خطوط مجانية من Google Fonts.</p>
+            <div class="type">
+                <div><small>العناوين والاسم</small><p class="sample" style="font-family:'Alexandria';font-weight:800">Alexandria</p><small>نبني حلولاً رقمية تُضيء مستقبل أعمالك</small></div>
+                <div><small>النصوص العربية</small><p class="sample" style="font-family:'IBM Plex Sans Arabic';font-weight:600">IBM Plex Sans Arabic</p><small>نص تجريبي لقراءة مريحة في الفقرات الطويلة</small></div>
+                <div><small>النصوص الإنجليزية</small><p class="sample" style="font-family:'IBM Plex Sans';font-weight:600;direction:ltr;text-align:right">IBM Plex Sans</p><small style="font-family:'IBM Plex Sans'">DAW SOFTWARE SOLUTIONS</small></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>قواعد الاستخدام</h2>
+            <p>هذه القواعد تحافظ على وضوح الشعار وهيبته.</p>
+            <div class="rules">
+                <div class="rule"><div class="clear"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/>
+</svg></div><h3>المساحة الفارغة</h3><p>اترك حول الشعار مساحة لا تقل عن ربع عرض الرمز من كل جهة، ولا تضع بداخلها نصوصاً أو عناصر.</p></div>
+                <div class="rule"><h3>أصغر حجم</h3><p>الرمز وحده: 16 بكسل على الشاشة، و8 مم في الطباعة.</p><p>الشعار الكامل: 140 بكسل على الشاشة، و35 مم في الطباعة.</p><p>تحت هذه الأحجام استخدم الرمز وحده.</p></div>
+            </div>
+            <h3 style="font-family:'Alexandria';color:var(--navy);margin:32px 0 16px">ممنوعات</h3>
+            <div class="grid donts">
+                <div class="tile"><div style="transform:scaleX(1.5)"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/>
+</svg></div><span class="cap">لا تمدّد الشعار أو تضغطه</span></div>
+                <div class="tile"><div style="filter:hue-rotate(160deg) saturate(2)"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/>
+</svg></div><span class="cap">لا تغيّر ألوانه</span></div>
+                <div class="tile"><div style="transform:rotate(-25deg)"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/>
+</svg></div><span class="cap">لا تُدِره</span></div>
+                <div class="tile"><div style="filter:drop-shadow(4px 6px 4px rgba(0,0,0,.45))"><svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#005430" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#6d28d9" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#6d28d9"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#6d28d9"/>
+</svg></div><span class="cap">لا تضف ظلالاً أو تأثيرات</span></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>الملفات</h2>
+            <p>كل الملفات بصيغة SVG متجهة، تبقى حادة بأي حجم.</p>
+            <div class="files">
+                <a href="logo-mark.svg" download><span>الرمز: خلفية فاتحة</span><code>logo-mark.svg</code></a>
+                <a href="logo-mark-on-dark.svg" download><span>الرمز: خلفية داكنة</span><code>logo-mark-on-dark.svg</code></a>
+                <a href="logo-white.svg" download><span>الرمز: أبيض</span><code>logo-white.svg</code></a>
+                <a href="logo-mono.svg" download><span>الرمز: لون واحد</span><code>logo-mono.svg</code></a>
+                <a href="logo-lockup.svg" download><span>الشعار الكامل: خلفية فاتحة</span><code>logo-lockup.svg</code></a>
+                <a href="logo-lockup-on-dark.svg" download><span>الشعار الكامل: خلفية داكنة</span><code>logo-lockup-on-dark.svg</code></a>
+                <a href="seal.svg" download><span>الختم</span><code>seal.svg</code></a>
+                <a href="seal-on-dark.svg" download><span>الختم: خلفية داكنة</span><code>seal-on-dark.svg</code></a>
+                <a href="seal-mono.svg" download><span>الختم: لون واحد</span><code>seal-mono.svg</code></a>
+                <a href="app-icon.svg" download><span>أيقونة التطبيق والحسابات</span><code>app-icon.svg</code></a>
+                <a href="favicon.svg" download><span>أيقونة المتصفح</span><code>favicon.svg</code></a>
+            </div>
+            <p class="note">ملفات الشعار الكامل والختم تحتوي نصوصاً بخطوط Alexandria و IBM Plex. عند إرسالها للمطبعة، اطلب من المصمم تحويل النصوص إلى مسارات (Outlines) أولاً.</p>
+        </section>
+    </main>
+
+    <footer><div class="wrap">© 2026 ضوء للحلول البرمجية · دليل الهوية، الإصدار السادس</div></footer>
+</body>
+</html>

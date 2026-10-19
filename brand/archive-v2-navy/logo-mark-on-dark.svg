@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="شعار ضوء">
+  <title>شعار ضوء</title>
+  <defs><clipPath id="m-cut"><rect width="48" height="33.5"/></clipPath></defs>
+  <path d="M14 12 4.5 24 14 36M34 12l9.5 12L34 36" fill="none" stroke="#e8edf5" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M32 2 17.5 26H25L16 46 30.5 22H23Z" fill="#c9a14a" clip-path="url(#m-cut)"/>
+  <rect x="19.4" y="35" width="3.4" height="3.4" fill="#c9a14a"/>
+  <rect x="17.3" y="40.2" width="2.6" height="2.6" fill="#c9a14a"/>
+</svg>
